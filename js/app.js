@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     /* Declaring Global Variables */
     var secret = getRandomNumber(1, 100);
-    console.log(secret);
+    // console.log(secret);
 
     var guessCounter = 25;
     $('#count').text(guessCounter);
@@ -74,11 +74,11 @@ $(document).ready(function () {
         var oldDifference = Math.abs(secret - oldGuess);
         var newDifference = Math.abs(secret - newGuess);
         if (oldDifference > newDifference) {
-            var compareToPreviousOutput = 'You are getting hotter.';
+            var compareToPreviousOutput = '...and getting hotter.';
         } else if (oldDifference < newDifference) {
-            var compareToPreviousOutput = 'You are getting colder.';
+            var compareToPreviousOutput = '...and getting colder.';
         } else {
-            var compareToPreviousOutput = 'Same temperature.';
+            var compareToPreviousOutput = '...and staying the same temperature.';
         }
         // console.log(compareToPreviousOutput);
         $('#relative-feedback').text(compareToPreviousOutput);
