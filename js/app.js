@@ -7,6 +7,8 @@ $(document).ready(function () {
     var guessCounter = 25;
     $('#count').text(guessCounter);
 
+    var oldGuess = 0;
+
 
     /* Function Definitions */
     function newGame() {
@@ -28,7 +30,6 @@ $(document).ready(function () {
             guessCounter--;
             compareGuessToSecret(secret, number);
             countGuesses(guessCounter);
-            compareToPrevious();
             storeGuesses(number);
 
             if (guessCounter <= 0) {
@@ -36,6 +37,7 @@ $(document).ready(function () {
                 document.getElementById("userGuess").disabled = true;
                 document.getElementById("guessButton").disabled = true;
                 alert('The secret number was ' + secret + '! Try harder next time!');
+
             }
         }
     }
@@ -67,8 +69,20 @@ $(document).ready(function () {
 
     }
 
-    function compareToPrevious() {
+    function compareToPrevious(oldGuess, newGuess, secret) {
         /* Triggered when previous validated guess exists */
+        var oldDifference = Math.abs(secret - oldGuess);
+        var newDifference = Math.abs(secret - newGuess);
+        if (oldDifference > newDifference) {
+            var compareToPreviousOutput = 'You are getting hotter.';
+        } else if (oldDifference < newDifference) {
+            var compareToPreviousOutput = 'You are getting colder.';
+        } else {
+            var compareToPreviousOutput = 'Same temperature.';
+        }
+        // console.log(compareToPreviousOutput);
+        $('#relative-feedback').text(compareToPreviousOutput);
+
     }
 
     function storeGuesses(number) {
@@ -80,7 +94,15 @@ $(document).ready(function () {
 
     $('#guessButton').on('click', function () {
         var guessedNumber = parseInt($('#userGuess').val(), 10);
+        var newGuess = guessedNumber;
+        // console.log("New Guess:" + newGuess);
         validateGuess(guessedNumber);
+        // console.log("Old Guess:" + oldGuess);
+        if (oldGuess != 0) {
+            compareToPrevious(oldGuess, newGuess, secret);
+        }
+        oldGuess = newGuess;
+        $('#userGuess').val('');
     });
 
     /*--- Display information modal box ---*/
