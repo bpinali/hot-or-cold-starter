@@ -24,6 +24,7 @@ $(document).ready(function () {
         } else if ((number < 0) || (number > 100)) {
             alert("Number must be between 1 and 100!");
         } else {
+            guessCounter++;
             compareGuessToSecret(secret, number);
             countGuesses(guessCounter);
             compareToPrevious();
@@ -35,24 +36,25 @@ $(document).ready(function () {
         /* Triggered after successful validation */
         var difference = Math.abs(secret - number);
         if (difference >= 50) {
-            $('#feedback').text('Ice Cold!');
+            $('#feedback').text('Freezing Cold!');
         } else if (difference >= 30 && difference <= 49) {
             $('#feedback').text('Cold!');
-
         } else if (difference >= 20 && difference <= 29) {
             $('#feedback').text('Warm!');
-
         } else if (difference >= 10 && difference <= 19) {
             $('#feedback').text('Hot!');
         } else if (difference >= 1 && difference <= 9) {
-            $('#feedback').text('Very Hot!!');
+            $('#feedback').text('Blazing Hot!!');
         } else {
-            $('#feedback').text('You got it. Well done!');
+            $('#feedback').text('You got it. Good for you!');
         }
     }
 
     function countGuesses(guessCounter) {
         /* Triggered after successful validation */
+        $('#count').text(guessCounter);
+        console.log(guessCounter);
+
     }
 
     function compareToPrevious() {
