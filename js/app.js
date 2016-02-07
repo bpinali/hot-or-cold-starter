@@ -4,7 +4,8 @@ $(document).ready(function () {
     var secret = getRandomNumber(1, 100);
     console.log(secret);
 
-    var guessCounter = 0;
+    var guessCounter = 25;
+    $('#count').text(guessCounter);
 
 
     /* Function Definitions */
@@ -24,11 +25,18 @@ $(document).ready(function () {
         } else if ((number < 0) || (number > 100)) {
             alert("Number must be between 1 and 100!");
         } else {
-            guessCounter++;
+            guessCounter--;
             compareGuessToSecret(secret, number);
             countGuesses(guessCounter);
             compareToPrevious();
             storeGuesses(number);
+
+            if (guessCounter <= 0) {
+                $('#feedback').text('Game Over!');
+                document.getElementById("userGuess").disabled = true;
+                document.getElementById("guessButton").disabled = true;
+                alert('The secret number was ' + secret + '! Maybe next time!');
+            }
         }
     }
 
@@ -43,7 +51,9 @@ $(document).ready(function () {
             $('#feedback').text('Warm!');
         } else if (difference >= 10 && difference <= 19) {
             $('#feedback').text('Hot!');
-        } else if (difference >= 1 && difference <= 9) {
+        } else if (difference >= 5 && difference <= 9) {
+            $('#feedback').text('Very Hot!');
+        } else if (difference >= 1 && difference <= 4) {
             $('#feedback').text('Blazing Hot!!');
         } else {
             $('#feedback').text('You got it. Good for you!');
@@ -53,7 +63,7 @@ $(document).ready(function () {
     function countGuesses(guessCounter) {
         /* Triggered after successful validation */
         $('#count').text(guessCounter);
-        console.log(guessCounter);
+        // console.log(guessCounter);
 
     }
 
