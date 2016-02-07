@@ -35,7 +35,7 @@ $(document).ready(function () {
                 $('#feedback').text('Game Over!');
                 document.getElementById("userGuess").disabled = true;
                 document.getElementById("guessButton").disabled = true;
-                alert('The secret number was ' + secret + '! Maybe next time!');
+                alert('The secret number was ' + secret + '! Try harder next time!');
             }
         }
     }
@@ -56,7 +56,7 @@ $(document).ready(function () {
         } else if (difference >= 1 && difference <= 4) {
             $('#feedback').text('Blazing Hot!!');
         } else {
-            $('#feedback').text('You got it. Good for you!');
+            $('#feedback').text('You got it. Way to go!');
         }
     }
 
@@ -73,6 +73,7 @@ $(document).ready(function () {
 
     function storeGuesses(number) {
         /* Triggered after successful validation */
+        $('#guessList').append('<li>' + parseInt($('#userGuess').val(), 10) + '</li>');
     }
     /* Invoking the functions */
     $('.new').on('click', newGame);
